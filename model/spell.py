@@ -77,4 +77,7 @@ class ActiveSpell():
     def getRemainingTicks(self):
         return self.spell.totalTicks - self.ticks
 
+    def getTimeLeft(self, curTime):
+        return (self.spell.totalTicks * 6) - (curTime - self.startTime).total_seconds()
+
 

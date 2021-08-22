@@ -42,5 +42,11 @@ def readLine(text, player):
         if m5:
             player.spellWornoff(m5.group(2), m5.group(3))
             matchfound = True
+            
+    if not matchfound:
+        m6 = overwrittenRegex().match(text)
+        if m6:
+            player.spellWornoff(m6.group(2), m6.group(3))
+            matchfound = True
     return matchfound
     

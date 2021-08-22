@@ -53,32 +53,47 @@ class Player:
                 self.activeSpells[spell] = 1
         else: 
             self.activeTargets[npc] = {spell:ActiveSpell(self.spells[spell], npc, t)}
-            log("Adding active spell:  " + spell)
             self.activeSpells[spell] = 1
         self.activeTargets[npc][spell].damage(amount, t)
-    
+        self.cleanup(t)
+        self.rebuildActiveSpells()
+
     def npcKilled(self, npc):
         npc = str.lower(npc)
         if npc in self.activeTargets:
             target = self.activeTargets.pop(npc)
             for spell in target:
                 target[spell].end(npc)
-        self.rebuildActiveSpells()
+            self.rebuildActiveSpells()
             
      
     def spellWornoff(self, spell, npc):
         npc = str.lower(npc)
         if npc in self.activeTargets and spell in self.activeTargets[npc]:
-            if(spell in self.activeSpells):
-                self.activeSpells.pop(spell)
             activeSpell = self.activeTargets[npc].pop(spell)
             activeSpell.wornoff(npc)
             if(len(self.activeTargets[npc]) == 0):
                 self.activeTargets.pop(npc)
+            self.rebuildActiveSpells()
     
+    def cleanup(self, time):
+        keys = list(self.activeTargets.keys())
+        for key in keys:
+            pop = True
+            for spell in self.activeTargets[key]:
+                if self.activeTargets[key][spell].getTimeLeft(time) < -1:
+                    self.activeTargets[key][spell].end(key)
+                if self.activeTargets[key][spell].active:
+                    pop = False
+                    break
+            if pop:
+                self.activeTargets.pop(key)
+
     def rebuildActiveSpells(self):
         self.activeSpells.clear()
         for npc in self.activeTargets:
             for spell in self.activeTargets[npc]:
-                self.activeSpells[spell] = 1
+                if(self.activeTargets[npc][spell].active):
+                    self.activeSpells[spell] = 1
+            
 

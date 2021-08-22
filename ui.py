@@ -60,9 +60,11 @@ def updateTable():
         tcv.create_rectangle_at(0, col, 'white')
         tcv.create_text_at(0, col, npc, 12)
         for spellName in tracker.player.activeTargets[npc]:
-            row = spellSlots[spellName]
             spell = tracker.player.activeTargets[npc][spellName]
-            timeLeft = (spell.spell.totalTicks * 6) - (tracker.curTime - spell.startTime).total_seconds()
+            if not spell.active:
+                continue
+            row = spellSlots[spellName]
+            timeLeft = spell.getTimeLeft(tracker.curTime)
             if(timeLeft < 10):
                 tcv.create_rectangle_at(row, col, '#fe0002')    
             else:
