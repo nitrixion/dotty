@@ -16,13 +16,13 @@ pyinstaller --onefile -w .\ui.py
 
 
 dist/dotty.exe
-* Run
-* Select log file to parse:  `{EQ_DIR}/Logs/eqlog_Gent_mischief.txt`
 * Run EQ in any not fullscreen mode
 * In game: /log on 
+* Run dotty.exe
+* Select log file to parse:  `{EQ_DIR}/Logs/eqlog_Gent_mischief.txt`
 * Veiw window - timers won't be perfect, but they will be close
 
 dist/replayLog.bat
-* Run
+* Run replayLog.bat
 * Select log file to parse:  `{EQ_DIR}/Logs/eqlog_Gent_mischief.txt`
 * Veiw window - This will replay your log file from the beginning.  It can be kinda fun to watch
