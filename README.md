@@ -15,10 +15,10 @@ pyinstaller --onefile -w .\ui.py
 # Executable
 
 
-dist/dotty.exe
+dist/dotty_ui.exe
 * Run EQ in any not fullscreen mode
 * In game: /log on 
-* Run dotty.exe
+* Run dotty_ui.exe
 * Select log file to parse:  `{EQ_DIR}/Logs/eqlog_Gent_mischief.txt`
 * Veiw window - timers won't be perfect, but they will be close
 
