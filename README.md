@@ -9,3 +9,7 @@ Work in progress, please pardon the mess.
 pip install pyinstaller
 
 pyinstaller --onefile -w .\ui.py
+
+
+# Executable
+
