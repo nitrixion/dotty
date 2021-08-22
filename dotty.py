@@ -34,10 +34,8 @@ class DotTracker:
             m = timeRegex().match(line)
             if m:
                 self.curTime = getTime(m.group(1))
-                #print("Found Time: " + str(self.curTime))
             # Only care about lines with the words Yyou or slain
             if "you" in line or "You" in line or "slain" in line:
                     if readLine(line, self.player):
                         self.OnMessage.notify(self)
-                        #time.sleep(0.1)
                         return

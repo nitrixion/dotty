@@ -68,7 +68,6 @@ def updateTable():
             else:
                 tcv.create_rectangle_at(row, col, spell.spell.color)
             tcv.create_text_at(row, col,"{0:.0f}s".format(timeLeft), 14)
-            #print("*** "+str(row) + " @ " + spellName + " - ticks left: " + str(spell.getRemainingTicks()) + " total: " + str(spell.ticks))
 
 def setWindow():
     w = str((len(tracker.player.activeTargets)+1) * tcv.width + 10)

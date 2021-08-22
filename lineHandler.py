@@ -33,7 +33,7 @@ def readLine(text, player):
     if not matchfound:
         m6 = slainByYouRegex().match(text)
         if m6:
-            print("Killed by you - " + m6.group(2))
+            log("Killed by you - " + m6.group(2))
             player.npcKilled(m6.group(2))
             matchfound = True
     
