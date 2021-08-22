@@ -32,16 +32,30 @@ class ActiveSpell():
     def recast(self):
         log("RECAST: "+ self.name)
         self.recasting = True
+        self.recastCache = {"ticks":self.ticks, "time":self.startTime, "used":False}
+    
+    def castFailed(self):
+        log("RECAST: "+ self.name)
+        self.recasting = False
+        # Spell was being recast while active and recieved a damage tick after recast started
+        # reset values to previous values, destroy cache
+        if self.recastCache and self.recastCache["used"]:
+            self.ticks = self.recastCache["ticks"]
+            self.startTime = self.recastCache["time"]
+            self.recastCache = None
+
 
     def wornoff(self, npc):
         log("FADE: "+ self.name + " Has finised after ticks: " + str(self.ticks) + " on " + npc)
         self.ticks = 0
         self.active = False
+        self.recasting = False
 
     def end(self, npc):
         log("DIE: "+self.name + " on " + npc + " Has finised after ticks: " + str(self.ticks))
         self.ticks = 0
         self.active = False
+        self.recasting = False
 
     def damage(self, amount, time):
         if(self.recasting):
@@ -49,6 +63,8 @@ class ActiveSpell():
             self.ticks = 0
             self.startTime = time
             self.recasting = False
+            self.recastCache["ticks"] += 1
+            self.recastCache["used"] = True
         self.ticks += 1
         
         if(self.ticks == 1):

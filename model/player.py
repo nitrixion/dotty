@@ -27,11 +27,19 @@ class Player:
         if spell in self.spells:
             self.spells[spell].interrupt()
         self.casting = ""
+        if(len(self.activeTargets) == 1):
+            target = list(self.activeTargets.values())[0]
+            if(spell in target):
+                target[spell].castFailed()
     
     def resisted(self, spell):
         if spell in self.spells:
             self.spells[spell].resist()
         self.casting = ""
+        if(len(self.activeTargets) == 1):
+            target = list(self.activeTargets.values())[0]
+            if(spell in target):
+                target[spell].castFailed()
 
     def damage(self, spell, amount, npc, time):
         if not spell in self.spells:
