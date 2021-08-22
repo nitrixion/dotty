@@ -21,12 +21,12 @@ class TextGrid(tk.Canvas):
     def create_text_at(self, row, col, text, size):
         """support creation of text at specific positions based on row and column
         """
-        x = 25 + self.width * .5 + self.width * (col)
+        x = 5 + self.width * .5 + self.width * (col)
         y = self.height * .5 + self.height * (row)
         self.create_text(x, y, text=text, font="Times "+str(size)+" bold")
     
     def create_rectangle_at(self, row, col, color):
-        x = 25 + self.width * (col)
+        x = 5 + self.width * (col)
         y = self.height * (row)
         self.create_rectangle(x, y, x + self.width, y + self.height, fill=color)
 
@@ -51,8 +51,13 @@ def updateTable():
             tcv.create_rectangle_at(row, col, tracker.player.spells[spell].color)
             tcv.create_text_at(row, col, spell, 12)
 
+    tcv.create_rectangle_at(0, 0, 'white')
+    if len(tracker.player.activeTargets) == 0:
+        tcv.create_text_at(0, 0, "Monitoring...", 12)
+
     for npc in tracker.player.activeTargets:
         col += 1
+        tcv.create_rectangle_at(0, col, 'white')
         tcv.create_text_at(0, col, npc, 12)
         for spellName in tracker.player.activeTargets[npc]:
             row = spellSlots[spellName]
@@ -66,8 +71,8 @@ def updateTable():
             #print("*** "+str(row) + " @ " + spellName + " - ticks left: " + str(spell.getRemainingTicks()) + " total: " + str(spell.ticks))
 
 def setWindow():
-    w = str((len(tracker.player.activeTargets)+1) * tcv.width + 50)
-    h = str((len(tracker.player.activeSpells)+1) * tcv.height + 10)
+    w = str((len(tracker.player.activeTargets)+1) * tcv.width + 10)
+    h = str((len(tracker.player.activeSpells)+1) * tcv.height + 5)
     root.geometry(w+"x"+h)
 
 def update():
