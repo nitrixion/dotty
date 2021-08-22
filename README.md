@@ -1,0 +1,2 @@
+# dotty
+Everquest Dot Tracker
