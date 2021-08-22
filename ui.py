@@ -66,7 +66,9 @@ def updateTable():
             row = spellSlots[spellName]
             timeLeft = spell.getTimeLeft(tracker.curTime)
             if(timeLeft < 10):
-                tcv.create_rectangle_at(row, col, '#fe0002')    
+                tcv.create_rectangle_at(row, col, '#fe0002')  
+            elif(timeLeft < 18):
+                tcv.create_rectangle_at(row, col, '#fffd01')    
             else:
                 tcv.create_rectangle_at(row, col, spell.spell.color)
             tcv.create_text_at(row, col,"{0:.0f}s".format(timeLeft), 14)
