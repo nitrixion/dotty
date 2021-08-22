@@ -1,10 +1,12 @@
 #import PySimpleGUI 
 # import pandas
 
-from dotty import DotTracker
-from logMessages import log
-from datetime import datetime
+import sys
 import tkinter as tk
+from datetime import datetime
+
+from dotty import DotTracker
+from data.logMessages import log
 from tkinter.filedialog import askopenfilename
 
 class TextGrid(tk.Canvas):
@@ -74,9 +76,9 @@ def update():
     setWindow()
     root.after(100, update)
 
-
-# tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
-
+loadToNow = True
+if len(sys.argv) > 1:
+    loadToNow = bool(sys.argv[1] == "True")
 
 root = tk.Tk()
 
@@ -88,7 +90,7 @@ root.deiconify()
 tcv = TextGrid(12, 4, root)
 tracker = DotTracker()
 # Skip to the end of the log
-tracker.load(filename, True)
+tracker.load(filename, loadToNow)
 log("Loaded")
 
 tcv.pack(expand=True, fill=tk.BOTH)

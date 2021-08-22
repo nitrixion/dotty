@@ -1,4 +1,4 @@
-from logMessages import *
+from data.logMessages import *
 
 def readLine(text, player):
     matchfound = False
