@@ -89,6 +89,16 @@ def overwrittenRegex():
         cache["overwritten"] = re.compile(logStart + "Your ([A-Za-z ]*) spell on ([A-Za-z ]*) has been overwritten.")
     return cache["overwritten"]
 
+## [Thu Aug 19 21:38:49 2021] Your Envenomed Bolt spell has worn off of Velketor the Sorcerer.
+# group(0) = whole string
+# group(1) = datetime
+# group(2) = spell name
+# group(3) = npc
+def zoningRegex():
+    if not "zone" in cache:
+        cache["zone"] = re.compile(logStart + "LOADING, PLEASE WAIT...")
+    return cache["zone"]
+
 def log(text):
     if(debug):
         print(text)

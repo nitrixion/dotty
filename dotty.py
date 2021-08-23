@@ -30,6 +30,9 @@ class DotTracker:
             m = timeRegex().match(line)
             if m:
                 self.curTime = getTime(m.group(1))
+            m2 = zoningRegex().match(line)
+            if m2:
+                self.player = getPlayer(getSpellsNecro())
             # Only care about lines with the words Yyou or slain
             if "you" in line or "You" in line or "slain" in line:
                 if readLine(line, self.player):

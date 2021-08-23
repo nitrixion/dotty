@@ -84,6 +84,10 @@ def update():
     setWindow()
     root.after(100, update)
 
+def move(event):
+    x, y = root.winfo_pointerxy()
+    root.geometry(f"+{x}+{y}")
+
 loadToNow = True
 if len(sys.argv) > 1:
     loadToNow = bool(sys.argv[1] == "True")
