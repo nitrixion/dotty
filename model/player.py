@@ -55,8 +55,8 @@ class Player:
             self.activeTargets[npc] = {spell:ActiveSpell(self.spells[spell], npc, t)}
             self.activeSpells[spell] = 1
         self.activeTargets[npc][spell].damage(amount, t)
-        self.cleanup(t)
-        self.rebuildActiveSpells()
+        #self.cleanup(t)
+        #self.rebuildActiveSpells()
 
     def npcKilled(self, npc):
         npc = str.lower(npc)
@@ -76,18 +76,13 @@ class Player:
                 self.activeTargets.pop(npc)
             self.rebuildActiveSpells()
     
-    def cleanup(self, time):
-        keys = list(self.activeTargets.keys())
-        for key in keys:
-            pop = True
-            for spell in self.activeTargets[key]:
-                if self.activeTargets[key][spell].getTimeLeft(time) < -1:
-                    self.activeTargets[key][spell].end(key)
-                if self.activeTargets[key][spell].active:
-                    pop = False
-                    break
-            if pop:
-                self.activeTargets.pop(key)
+    def remove(self, npc, spell):
+        if npc in self.activeTargets:
+            if spell in self.activeTargets[npc]:
+                self.activeTargets[npc].pop(spell)
+            if len(self.activeTargets[npc]) == 0:
+                self.activeTargets.pop(npc)
+        self.rebuildActiveSpells()
 
     def rebuildActiveSpells(self):
         self.activeSpells.clear()
