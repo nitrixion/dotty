@@ -14,7 +14,7 @@ class DotTracker:
         self.curTime = datetime.time
 
     def load(self, fileName, toEnd):
-        self.file = open(fileName, "r")
+        self.file = open(fileName, encoding="utf8")
         if not toEnd:
             return
         while 1:
