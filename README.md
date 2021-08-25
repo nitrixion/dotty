@@ -3,7 +3,7 @@ Everquest Dot Tracker
 
 Work in progress, please pardon the mess.
 
-Only Necromancer is supported at the moment
+Only Necromancer (and now Shaman) damage over time spells are supported at the moment
 
 # build
 
