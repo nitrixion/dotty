@@ -28,7 +28,7 @@ def beginCastingRegex():
 # group(4) = spell name
 def damageRegex():
     if not "damage" in cache:
-        cache["damage"] = re.compile(logStart + "([A-Za-z ]*) has taken ([0-9]*) damage from your ([A-Za-z ]*).")
+        cache["damage"] = re.compile(logStart + "([`A-Za-z ]*) has taken ([0-9]*) damage from your ([A-Za-z ]*).")
     return cache["damage"]
 
 ## [Thu Aug 19 19:58:55 2021] Your Envenomed Bolt spell is interrupted.
@@ -47,7 +47,7 @@ def interruptedRegex():
 # group(3) = spell name
 def resistedRegex():
     if not "resisted" in cache:
-        cache["resisted"] = re.compile(logStart + "([A-Za-z ]*) resisted your ([A-Za-z ]*)!")
+        cache["resisted"] = re.compile(logStart + "([`A-Za-z ]*) resisted your ([A-Za-z ]*)!")
     return cache["resisted"]
 
 
@@ -57,7 +57,7 @@ def resistedRegex():
 # group(2) = npc
 def slainByOtherRegex():
     if not "slainOther" in cache:
-        cache["slainOther"] = re.compile(logStart + "([A-Za-z ]*) has been slain")
+        cache["slainOther"] = re.compile(logStart + "([`A-Za-z ]*) has been slain")
     return cache["slainOther"]
 
 ## [Fri Aug 20 23:45:55 2021] You have slain a large rattlesnake!
@@ -66,7 +66,7 @@ def slainByOtherRegex():
 # group(2) = npc
 def slainByYouRegex():
     if not "slainYou" in cache:
-        cache["slainYou"] = re.compile(logStart + "You have slain ([A-Za-z ]*)")
+        cache["slainYou"] = re.compile(logStart + "You have slain ([`A-Za-z ]*)")
     return cache["slainYou"]
 
 ## [Thu Aug 19 21:38:49 2021] Your Envenomed Bolt spell has worn off of Velketor the Sorcerer.
@@ -76,7 +76,7 @@ def slainByYouRegex():
 # group(3) = npc
 def wornoffRegex():
     if not "wornoff" in cache:
-        cache["wornoff"] = re.compile(logStart + "Your ([A-Za-z ]*) spell has worn off of ([A-Za-z ]*)")
+        cache["wornoff"] = re.compile(logStart + "Your ([A-Za-z ]*) spell has worn off of ([`A-Za-z ]*)")
     return cache["wornoff"]
 
 ## [Thu Aug 19 21:38:49 2021] Your Envenomed Bolt spell has worn off of Velketor the Sorcerer.
@@ -86,7 +86,7 @@ def wornoffRegex():
 # group(3) = npc
 def overwrittenRegex():
     if not "overwritten" in cache:
-        cache["overwritten"] = re.compile(logStart + "Your ([A-Za-z ]*) spell on ([A-Za-z ]*) has been overwritten.")
+        cache["overwritten"] = re.compile(logStart + "Your ([A-Za-z ]*) spell on ([`A-Za-z ]*) has been overwritten.")
     return cache["overwritten"]
 
 ## [Thu Aug 19 21:38:49 2021] Your Envenomed Bolt spell has worn off of Velketor the Sorcerer.
