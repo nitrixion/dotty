@@ -17,10 +17,9 @@ class DotTracker:
         self.file = open(fileName, encoding="utf8")
         if not toEnd:
             return
-        while 1:
-            line = self.file.readline()
-            if not line:
-                return
+        #read to end of file
+        line = self.file.readlines()
+        return
 
     def nextLine(self):
         while 1:
