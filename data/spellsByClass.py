@@ -9,6 +9,7 @@ def getSpellsNecro():
         "Pox of Bertoxxulous" : Spell("Pox of Bertoxxulous", 18, 579, disease()),
         "Curse of the Spirits" : Spell("Curse of the Spirits", 14, 1, magic()),
         #druid
+        "Breath of Ro" : Spell("Breath of Ro", 9, 157, fire()),
         "Winged Death" : Spell("Winged Death", 9, 468, magic()),
         "Wrath of Nature" : Spell("Wrath of Nature", 30, 1, magic()),
         "Drones of Doom" : Spell("Drones of Doom", 8, 287, magic()),
