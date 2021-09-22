@@ -27,5 +27,6 @@ def getSpellsNecro():
         "Torment of Shadows" : Spell("Torment of Shadows", 16, 1, snare()),
         #druid
         "Winged Death" : Spell("Winged Death", 9, 468, magic()),
+        "Wrath of Nature" : Spell("Wrath of Nature", 30, 1, magic()),
         "Drones of Doom" : Spell("Drones of Doom", 8, 287, magic()),
     }
