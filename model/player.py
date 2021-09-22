@@ -47,6 +47,7 @@ class Player:
         t = getTime(time)
         log(spell + " started damage at " + str(t))
         npc = str.lower(npc)
+        
         if(npc in self.activeTargets):
             if(not spell in self.activeTargets[npc]):
                 self.activeTargets[npc][spell] = ActiveSpell(self.spells[spell], npc, t)
@@ -55,8 +56,6 @@ class Player:
             self.activeTargets[npc] = {spell:ActiveSpell(self.spells[spell], npc, t)}
             self.activeSpells[spell] = 1
         self.activeTargets[npc][spell].damage(amount, t)
-        #self.cleanup(t)
-        #self.rebuildActiveSpells()
 
     def npcKilled(self, npc):
         npc = str.lower(npc)

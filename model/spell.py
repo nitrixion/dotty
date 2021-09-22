@@ -1,10 +1,12 @@
 from data.logMessages import log
 class Spell:
-    def __init__(self, name, durationTicks, color):
+    def __init__(self, name, durationTicks, cost, color):
         self.casting = False
         self.name = name
         self.totalTicks = durationTicks
         self.color = color
+        self.cost = cost
+        self.dpm = 0
 
     def start(self):
         self.casting = True
@@ -19,6 +21,9 @@ class Spell:
         self.casting = False
         log("Resisted: " + self.name)
 
+    def updateDamagePerMana(self, dpm):
+        self.dpm = max(dpm, self.dpm)
+
 class ActiveSpell():
     def __init__(self, spellDef, npc, firstTickAt):
         self.name = spellDef.name
@@ -28,11 +33,15 @@ class ActiveSpell():
         self.active = True
         self.startTime = firstTickAt
         self.recasting = False
+        self.totalDamage = 0
+        self.damagePerMana = 0
+        self.recastCache = {}
 
     def recast(self):
         log("RECAST: "+ self.name)
+        # Bug: issue with instance not being reset. Consider recastStartTime and adding castTime.
         self.recasting = True
-        self.recastCache = {"ticks":self.ticks, "time":self.startTime, "used":False}
+        self.recastCache = {"ticks":self.ticks, "time":self.startTime, "used":False, "dpm":self.damagePerMana, "total":self.totalDamage}
     
     def castFailed(self):
         log("RECAST: "+ self.name)
@@ -42,6 +51,8 @@ class ActiveSpell():
         if self.recastCache and self.recastCache["used"]:
             self.ticks = self.recastCache["ticks"]
             self.startTime = self.recastCache["time"]
+            # self.damagePerMana = self.recastCache["dpm"]
+            # self.totalDamage = self.recastCache["total"]
             self.recastCache = None
 
 
@@ -58,19 +69,24 @@ class ActiveSpell():
         self.recasting = False
 
     def damage(self, amount, time):
+        self.ticks += 1
+        self.totalDamage += int(amount)
+        self.damagePerMana = self.totalDamage / self.spell.cost
+        if(self.ticks <= self.spell.totalTicks):
+            self.spell.updateDamagePerMana(self.damagePerMana)
+
         if(self.recasting):
             log("RESET after recast: " + self.name)
-            self.ticks = 0
+            self.ticks = 1
             self.startTime = time
             self.recasting = False
             self.recastCache["ticks"] += 1
             self.recastCache["used"] = True
-        self.ticks += 1
-        
+
         if(self.ticks == 1):
             log(self.name + " started on " + self.npc + " for: " + amount)
-        elif self.spell.totalTicks > self.ticks and self.spell.totalTicks - self.ticks < 3:
-            log(self.name + " - fading on " + self.npc + " in " + str((self.spell.totalTicks - self.ticks) * 6) + " seconds.")
+        elif self.spell.totalTicks > self.ticks and self.getRemainingTicks() < 3:
+            log(self.name + " - fading on " + self.npc + " in " + str((self.getRemainingTicks()) * 6) + " seconds.")
         else:
             log(self.name + " tick: " + str(self.ticks) +" on " + self.npc + " for: " + amount)
     

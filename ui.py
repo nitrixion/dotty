@@ -32,7 +32,6 @@ class TextGrid(tk.Canvas):
 
 
 spellSlots = {}
-colors = ['red','blue','green','red','blue','green','red','blue','green','red','blue','green','red','blue','green']
 
 def getRow():
     row = 1
@@ -53,8 +52,12 @@ def updateTable():
         if spell in tracker.player.activeSpells:
             row += 1
             spellSlots[spell] = row
-            tcv.create_rectangle_at(row, col, tracker.player.spells[spell].color)
-            tcv.create_text_at(row, col, spell, 12)
+            s = tracker.player.spells[spell]
+            tcv.create_rectangle_at(row, col, s.color)
+            if(s.cost > 1):
+                tcv.create_text_at(row, col, "{0} ({1:.1f})".format(spell, s.dpm), 12)
+            else:
+                tcv.create_text_at(row, col, "{0}".format(spell), 12)
 
     tcv.create_rectangle_at(0, 0, 'white')
     if len(tracker.player.activeTargets) == 0:
@@ -86,7 +89,10 @@ def updateTable():
                 tcv.create_rectangle_at(row, col, '#fffd01')    
             else:
                 tcv.create_rectangle_at(row, col, spell.spell.color)
-            tcv.create_text_at(row, col,"{0:.0f}s".format(timeLeft), 14)
+            if(spell.spell.cost > 1):
+                tcv.create_text_at(row, col,"{0:.0f}s {1:.1f}dpm".format(timeLeft, spell.damagePerMana), 14)
+            else:
+                tcv.create_text_at(row, col,"{0:.0f}s".format(timeLeft), 14)
 
     if len(cleanup) > 0:
         for npc in cleanup:
