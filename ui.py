@@ -89,10 +89,10 @@ def updateTable():
                 tcv.create_rectangle_at(row, col, '#fffd01')    
             else:
                 tcv.create_rectangle_at(row, col, spell.spell.color)
-            if(spell.spell.cost > 1):
-                tcv.create_text_at(row, col,"{0:.0f}s {1:.1f}dpm".format(timeLeft, spell.damagePerMana), 14)
-            else:
-                tcv.create_text_at(row, col,"{0:.0f}s".format(timeLeft), 14)
+            # if(spell.spell.cost > 1):
+            #     tcv.create_text_at(row, col,"{0:.0f}s {1:.1f}dpm".format(timeLeft, spell.damagePerMana), 14)
+            # else:
+            tcv.create_text_at(row, col,"{0:.0f}s".format(timeLeft), 14)
 
     if len(cleanup) > 0:
         for npc in cleanup:
@@ -100,7 +100,7 @@ def updateTable():
                 tracker.player.remove(npc,spell)
 
 def setWindow():
-    w = str((len(tracker.player.activeTargets)+1) * tcv.width + 10)
+    w = str(max((len(tracker.player.activeTargets)+1) * tcv.width + 10, 200))
     h = str((len(tracker.player.activeSpells)+1) * tcv.height + 5)
     root.geometry(w+"x"+h)
 

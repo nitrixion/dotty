@@ -18,12 +18,14 @@ def getSpellsNecro():
         "Bane of Nife" : Spell("Bane of Nife", 7, 860, poison()),
         "Envenomed Bolt" : Spell("Envenomed Bolt", 6, 409, poison()),
         #Magic
+        "Zevfeer's Theft of Vitae" : Spell("Zevfeer's Theft of Vitae", 9, 650, magic()),
         "Vexing Mordinia" : Spell("Vexing Mordinia", 9, 495, magic()),
         "Morternum" : Spell("Morternum", 9, 1, magic()),
         "Splurt" : Spell("Splurt", 16, 237, magic()),
         "Soul Well" : Spell("Soul Well", 10, 1, magic()),
         #fire
-        "Pyrocruor" : Spell("Pyrocruor", 8, 295,fire()),
+        "Funeral Pyre of Kelador" : Spell("Funeral Pyre of Kelador", 8, 470, fire()),
+        "Pyrocruor" : Spell("Pyrocruor", 8, 295, fire()),
         "Ignite Blood" : Spell("Ignite Blood", 7, 218, fire()),
         "Boil Blood" : Spell("Boil Blood", 7, 136, fire()),
         "Heat Blood" : Spell("Heat Blood", 6, 88, fire()),
