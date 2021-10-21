@@ -18,6 +18,7 @@ class TextGrid(tk.Canvas):
         self.width = 150
         self.height = 30
         
+        
     def create_text_at(self, row, col, text, size):
         """support creation of text at specific positions based on row and column
         """
@@ -94,14 +95,14 @@ def updateTable():
             # else:
             tcv.create_text_at(row, col,"{0:.0f}s".format(timeLeft), 14)
 
-    if len(cleanup) > 0:
-        for npc in cleanup:
-            for spell in cleanup[npc]:
-                tracker.player.remove(npc,spell)
+    for npc in cleanup:
+        for spell in cleanup[npc]:
+            tracker.player.remove(npc,spell)
 
 def setWindow():
     w = str(max((len(tracker.player.activeTargets)+1) * tcv.width + 10, 200))
     h = str((len(tracker.player.activeSpells)+1) * tcv.height + 5)
+    root.title("dotty")
     root.geometry(w+"x"+h)
 
 def update():
