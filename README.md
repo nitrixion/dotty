@@ -20,9 +20,9 @@ dist/dotty_ui.exe
 * In game: /log on 
 * Run dotty_ui.exe
 * Select log file to parse:  `{EQ_DIR}/Logs/eqlog_Gent_mischief.txt`
-* Veiw window - timers won't be perfect, but they will be close
+* View window - timers won't be perfect, but they will be close
 
 dist/replayLog.bat
 * Run replayLog.bat
 * Select log file to parse:  `{EQ_DIR}/Logs/eqlog_Gent_mischief.txt`
-* Veiw window - This will replay your log file from the beginning.  It can be kinda fun to watch
+* View window - This will replay your log file from the beginning.  It can be kinda fun to watch
