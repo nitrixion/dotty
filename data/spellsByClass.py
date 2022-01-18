@@ -18,6 +18,7 @@ def getSpellsNecro():
         "Blood of Thule" : Spell("Blood of Thule", 7, 436, poison()),
         "Bane of Nife" : Spell("Bane of Nife", 7, 860, poison()),
         "Envenomed Bolt" : Spell("Envenomed Bolt", 6, 409, poison()),
+        "Chilling Embrace" : Spell("Chilling Embrace", 6, 172, poison()),
         #Magic
         "Saryrn's Kiss" : Spell("Saryrn's Kiss", 10, 550, magic()),
         "Zevfeer's Theft of Vitae" : Spell("Zevfeer's Theft of Vitae", 9, 650, magic()),

@@ -4,9 +4,9 @@ debug = True
 
 logStart = "\[([A-Za-z0-9: ]*)\] "
 
-spell = "([A-Za-z ]*)"
+spell = "([A-Za-z ']*)"
 
-npc = "([`A-Za-z -]*)"
+npc = "([`A-Za-z -']*)"
 
 cache = {}
 
