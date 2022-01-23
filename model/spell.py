@@ -1,4 +1,6 @@
 from data.logMessages import log
+import math
+
 class Spell:
     def __init__(self, name, durationTicks, cost, color):
         self.casting = False
@@ -25,9 +27,14 @@ class Spell:
         self.dpm = max(dpm, self.dpm)
 
 class ActiveSpell():
-    def __init__(self, spellDef, npc, firstTickAt):
+    def __init__(self, spellDef, npc, firstTickAt, mod):
         self.name = spellDef.name
+        self.durationMod = mod
         self.spell = spellDef
+        self.totalTicks = self.getSpellTicks()
+        #self.spell.totalTicks = round(self.spell.totalTicks * mod)
+        log("Active spell: " + self.name + " with mod: " + str(mod) + " ticks: " + str(self.totalTicks))
+        
         self.ticks = 0
         self.npc = npc
         self.active = True
@@ -36,6 +43,7 @@ class ActiveSpell():
         self.totalDamage = 0
         self.damagePerMana = 0
         self.recastCache = {}
+        
 
     def recast(self):
         log("RECAST: "+ self.name)
@@ -72,7 +80,7 @@ class ActiveSpell():
         self.ticks += 1
         self.totalDamage += int(amount)
         self.damagePerMana = self.totalDamage / self.spell.cost
-        if(self.ticks <= self.spell.totalTicks):
+        if(self.ticks <= self.getSpellTicks()):
             self.spell.updateDamagePerMana(self.damagePerMana)
 
         if(self.recasting):
@@ -85,15 +93,18 @@ class ActiveSpell():
 
         if(self.ticks == 1):
             log(self.name + " started on " + self.npc + " for: " + amount)
-        elif self.spell.totalTicks > self.ticks and self.getRemainingTicks() < 3:
-            log(self.name + " - fading on " + self.npc + " in " + str((self.getRemainingTicks()) * 6) + " seconds.")
+        elif self.totalTicks > self.ticks and self.getRemainingTicks() < 3:
+            log(self.name + " - fading on " + self.npc + " in " + str((self.totalTicks) * 6) + " seconds.")
         else:
             log(self.name + " tick: " + str(self.ticks) +" on " + self.npc + " for: " + amount)
     
     def getRemainingTicks(self):
-        return self.spell.totalTicks - self.ticks
+        return self.totalTicks - self.ticks
 
     def getTimeLeft(self, curTime):
-        return (self.spell.totalTicks * 6) - (curTime - self.startTime).total_seconds()
+        return (self.totalTicks * 6) - (curTime - self.startTime).total_seconds()
+
+    def getSpellTicks(self):
+        return round(self.spell.totalTicks * self.durationMod)
 
 

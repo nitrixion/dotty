@@ -12,6 +12,9 @@ class DotTracker:
     def __init__(self):
         self.player = getPlayer(getSpellsNecro())
         self.curTime = datetime.time
+    
+    def updateDurationModifier(self, mod):
+        self.player.durationModifier(mod)
 
     def load(self, fileName, toEnd):
         self.file = open(fileName, encoding="utf8")

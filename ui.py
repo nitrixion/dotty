@@ -8,6 +8,9 @@ from datetime import datetime
 from dotty import DotTracker
 from data.logMessages import log
 from tkinter.filedialog import askopenfilename
+from tkinter import LEFT, RIGHT, BOTH, RAISED, X
+from tkinter.ttk import Frame
+# from tkinter.tkSimpleDialog import tkSimpleDialog
 
 class TextGrid(tk.Canvas):
     def __init__(self, rows, cols, master):
@@ -45,6 +48,16 @@ def addItemToList(obj, npc, spell):
     if spell:
         obj[npc][spell] = 1
 
+def handleModifier():
+    try:
+        mod = int(inputtxt.get('1.0', 'end'))
+        tracker.updateDurationModifier(mod)
+    except ValueError:
+        inputtxt.delete("1.0","end")
+        inputtxt.insert('end', '0')
+    
+    #mod = tk.tkSimpleDialog.askstring("Name prompt", "enter your name")
+
 def updateTable():
     tcv.delete("all")
     col = 0
@@ -62,6 +75,8 @@ def updateTable():
 
     tcv.create_rectangle_at(0, 0, 'white')
     if len(tracker.player.activeTargets) == 0:
+        #button = tk.Button(root, text ="Monitoring (Click to add duration modifier)", command = handleModifier)
+        #button.pack()
         tcv.create_text_at(0, 0, "Monitoring...", 12)
 
     cleanup = {}
@@ -101,7 +116,7 @@ def updateTable():
 
 def setWindow():
     w = str(max((len(tracker.player.activeTargets)+1) * tcv.width + 10, 200))
-    h = str((len(tracker.player.activeSpells)+1) * tcv.height + 5)
+    h = str((len(tracker.player.activeSpells)+2) * tcv.height + 5)
     root.title("dotty")
     root.geometry(w+"x"+h)
 
@@ -131,6 +146,19 @@ tracker = DotTracker()
 # Skip to the end of the log
 tracker.load(filename, loadToNow)
 log("Loaded")
+
+
+frame = Frame(root, relief=RAISED, borderwidth=1)
+frame.pack(fill=X, expand=True)
+
+button = tk.Button(frame, text ="Set Duration Mod %", command = handleModifier)
+#button.place(x=0, y=0)
+button.pack(side=LEFT)
+
+inputtxt = tk.Text(frame, height = 1, width = 4)
+inputtxt.insert('end', '0')
+#inputtxt.place(x=10, y=0)
+inputtxt.pack(side=LEFT)
 
 tcv.pack(expand=True, fill=tk.BOTH)
 

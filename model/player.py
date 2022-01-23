@@ -10,6 +10,7 @@ class Player:
         self.casting = ""
         self.activeTargets = {}
         self.activeSpells = {}
+        self.durationMod = 1
     
     def get_casting(self):
         return self.casting
@@ -50,10 +51,10 @@ class Player:
         
         if(npc in self.activeTargets):
             if(not spell in self.activeTargets[npc]):
-                self.activeTargets[npc][spell] = ActiveSpell(self.spells[spell], npc, t)
+                self.activeTargets[npc][spell] = ActiveSpell(self.spells[spell], npc, t, self.durationMod)
                 self.activeSpells[spell] = 1
         else: 
-            self.activeTargets[npc] = {spell:ActiveSpell(self.spells[spell], npc, t)}
+            self.activeTargets[npc] = {spell:ActiveSpell(self.spells[spell], npc, t, self.durationMod)}
             self.activeSpells[spell] = 1
         self.activeTargets[npc][spell].damage(amount, t)
 
@@ -89,5 +90,9 @@ class Player:
             for spell in self.activeTargets[npc]:
                 if(self.activeTargets[npc][spell].active):
                     self.activeSpells[spell] = 1
+
+    def durationModifier(self, mod):
+        self.durationMod = 1.0 + mod / 100.0
+
             
 
