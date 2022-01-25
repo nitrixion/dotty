@@ -1,5 +1,6 @@
 from model.spell import *
 from util import getTime
+import datetime
 
 def getPlayer(spells):
     return Player(spells)
@@ -11,6 +12,7 @@ class Player:
         self.activeTargets = {}
         self.activeSpells = {}
         self.durationMod = 1
+        self.lastTick = 0
     
     def get_casting(self):
         return self.casting
@@ -48,13 +50,13 @@ class Player:
         t = getTime(time)
         log(spell + " started damage at " + str(t))
         npc = str.lower(npc)
-        
+        self.lastTick = t
         if(npc in self.activeTargets):
             if(not spell in self.activeTargets[npc]):
-                self.activeTargets[npc][spell] = ActiveSpell(self.spells[spell], npc, t, self.durationMod)
+                self.activeTargets[npc][spell] = ActiveSpell(self.spells[spell], npc, t, self.durationMod, self.timeUntilNextTick(t))
                 self.activeSpells[spell] = 1
         else: 
-            self.activeTargets[npc] = {spell:ActiveSpell(self.spells[spell], npc, t, self.durationMod)}
+            self.activeTargets[npc] = {spell:ActiveSpell(self.spells[spell], npc, t, self.durationMod, self.timeUntilNextTick(t))}
             self.activeSpells[spell] = 1
         self.activeTargets[npc][spell].damage(amount, t)
 
@@ -93,6 +95,15 @@ class Player:
 
     def durationModifier(self, mod):
         self.durationMod = 1.0 + mod / 100.0
+
+    def timeUntilNextTick(self, curTime):
+        if self.lastTick == 0:
+            return 0
+        nextTick = self.lastTick + datetime.timedelta(seconds=6)
+        seconds = (nextTick - curTime).total_seconds()
+        if seconds > 0:
+            return seconds
+        return 0
 
             
 

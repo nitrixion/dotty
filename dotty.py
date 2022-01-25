@@ -12,6 +12,7 @@ class DotTracker:
     def __init__(self):
         self.player = getPlayer(getSpellsNecro())
         self.curTime = datetime.time
+        self.timeUntilTick = "0"
     
     def updateDurationModifier(self, mod):
         self.player.durationModifier(mod)
@@ -32,6 +33,7 @@ class DotTracker:
             m = timeRegex().match(line)
             if m:
                 self.curTime = getTime(m.group(1))
+                self.timeUntilTick = self.player.timeUntilNextTick(self.curTime)
             m2 = zoningRegex().match(line)
             if m2:
                 self.player = getPlayer(getSpellsNecro())

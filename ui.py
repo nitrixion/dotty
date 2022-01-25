@@ -8,7 +8,7 @@ from datetime import datetime
 from dotty import DotTracker
 from data.logMessages import log
 from tkinter.filedialog import askopenfilename
-from tkinter import LEFT, RIGHT, BOTH, RAISED, X
+from tkinter import LEFT, RIGHT, BOTH, RAISED, X, StringVar
 from tkinter.ttk import Frame
 # from tkinter.tkSimpleDialog import tkSimpleDialog
 
@@ -115,13 +115,15 @@ def updateTable():
             tracker.player.remove(npc,spell)
 
 def setWindow():
-    w = str(max((len(tracker.player.activeTargets)+1) * tcv.width + 10, 200))
+    w = str(max((len(tracker.player.activeTargets)+1) * tcv.width + 10, 250))
     h = str((len(tracker.player.activeSpells)+2) * tcv.height + 5)
     root.title("dotty")
     root.geometry(w+"x"+h)
 
 def update():
     tracker.nextLine()
+    #log(type(tracker.timeUntilTick))
+    timeLeftValue.set(" Tick in: {0}s".format(tracker.timeUntilTick))
     updateTable()
     setWindow()
     root.after(100, update)
@@ -147,7 +149,7 @@ tracker = DotTracker()
 tracker.load(filename, loadToNow)
 log("Loaded")
 
-
+# top frame
 frame = Frame(root, relief=RAISED, borderwidth=1)
 frame.pack(fill=X, expand=True)
 
@@ -159,6 +161,12 @@ inputtxt = tk.Text(frame, height = 1, width = 4)
 inputtxt.insert('end', '0')
 #inputtxt.place(x=10, y=0)
 inputtxt.pack(side=LEFT)
+
+timeLeftValue = StringVar()
+timeLeft = tk.Label(frame, height = 1, width = 8, textvariable=timeLeftValue)
+timeLeftValue.set("0")
+timeLeft.pack(side=LEFT)
+# end top frame
 
 tcv.pack(expand=True, fill=tk.BOTH)
 

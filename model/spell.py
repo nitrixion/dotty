@@ -27,11 +27,12 @@ class Spell:
         self.dpm = max(dpm, self.dpm)
 
 class ActiveSpell():
-    def __init__(self, spellDef, npc, firstTickAt, mod):
+    def __init__(self, spellDef, npc, firstTickAt, mod, timeUntilNextTick):
         self.name = spellDef.name
         self.durationMod = mod
         self.spell = spellDef
         self.totalTicks = self.getSpellTicks()
+        self.timeUntilNextTick = timeUntilNextTick
         #self.spell.totalTicks = round(self.spell.totalTicks * mod)
         log("Active spell: " + self.name + " with mod: " + str(mod) + " ticks: " + str(self.totalTicks))
         
@@ -80,7 +81,7 @@ class ActiveSpell():
         self.ticks += 1
         self.totalDamage += int(amount)
         self.damagePerMana = self.totalDamage / self.spell.cost
-        if(self.ticks <= self.getSpellTicks()):
+        if(self.ticks <= self.totalTicks):
             self.spell.updateDamagePerMana(self.damagePerMana)
 
         if(self.recasting):
@@ -102,9 +103,8 @@ class ActiveSpell():
         return self.totalTicks - self.ticks
 
     def getTimeLeft(self, curTime):
-        return (self.totalTicks * 6) - (curTime - self.startTime).total_seconds()
+        return (self.totalTicks * 6) - (curTime - self.startTime).total_seconds() + self.timeUntilNextTick
 
     def getSpellTicks(self):
         return round(self.spell.totalTicks * self.durationMod)
-
 
