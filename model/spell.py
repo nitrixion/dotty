@@ -106,5 +106,5 @@ class ActiveSpell():
         return (self.totalTicks * 6) - (curTime - self.startTime).total_seconds() + self.timeUntilNextTick
 
     def getSpellTicks(self):
-        return round(self.spell.totalTicks * self.durationMod)
+        return round(self.spell.totalTicks * self.durationMod) - 1
 

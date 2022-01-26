@@ -126,7 +126,7 @@ def update():
     timeLeftValue.set(" Tick in: {0}s".format(tracker.timeUntilTick))
     updateTable()
     setWindow()
-    root.after(100, update)
+    root.after(10, update)
 
 def move(event):
     x, y = root.winfo_pointerxy()
