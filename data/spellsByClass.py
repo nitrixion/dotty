@@ -21,6 +21,7 @@ def getSpellsNecro():
         "Chilling Embrace" : Spell("Chilling Embrace", 6, 172, poison()),
         #Magic
         "Saryrn's Kiss" : Spell("Saryrn's Kiss", 10, 550, magic()),
+        "Horror" : Spell("Horror", 5, 450, magic()),
         "Zevfeer's Theft of Vitae" : Spell("Zevfeer's Theft of Vitae", 9, 650, magic()),
         "Vexing Mordinia" : Spell("Vexing Mordinia", 9, 495, magic()),
         "Morternum" : Spell("Morternum", 9, 1, magic()),
