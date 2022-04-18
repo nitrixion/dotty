@@ -1,6 +1,13 @@
 from model.spell import Spell
 from data.spellColors import *
 
+def loadSpells():
+    self.spellsFile = load("spells.json")
+    self.spells = json.load(self.spellsFile)
+    obj = {}
+    for spell in spells:
+        obj[spell.name] = Spell(spell.name, spell.ticks, spell.cost, getColor(spell.type))
+
 # all classes atm
 def getSpellsNecro():
     return {

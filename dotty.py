@@ -7,6 +7,7 @@ from model.player import getPlayer
 from data.logMessages import timeRegex
 from datetime import datetime
 from util import getTime
+import json
 
 class DotTracker:
     def __init__(self):
@@ -34,6 +35,7 @@ class DotTracker:
             if m:
                 self.curTime = getTime(m.group(1))
                 self.timeUntilTick = self.player.timeUntilNextTick(self.curTime)
+            # reset player on zoning
             m2 = zoningRegex().match(line)
             if m2:
                 self.player = getPlayer(getSpellsNecro())
