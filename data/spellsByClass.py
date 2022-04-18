@@ -20,6 +20,8 @@ def getSpellsNecro():
         "Envenomed Bolt" : Spell("Envenomed Bolt", 6, 409, poison()),
         "Chilling Embrace" : Spell("Chilling Embrace", 6, 172, poison()),
         #Magic
+        "Night's Beckon" : Spell("Night's Beckon", 10, 605, magic()),
+        "Night Stalker" : Spell("Night Stalker", 9, 950, magic()),
         "Saryrn's Kiss" : Spell("Saryrn's Kiss", 10, 550, magic()),
         "Horror" : Spell("Horror", 5, 450, magic()),
         "Zevfeer's Theft of Vitae" : Spell("Zevfeer's Theft of Vitae", 9, 650, magic()),
@@ -28,6 +30,7 @@ def getSpellsNecro():
         "Splurt" : Spell("Splurt", 16, 237, magic()),
         "Soul Well" : Spell("Soul Well", 10, 1, magic()),
         #fire
+        "Night Fire" : Spell("Night Fire", 9, 572, fire()),
         "Funeral Pyre of Kelador" : Spell("Funeral Pyre of Kelador", 8, 470, fire()),
         "Pyrocruor" : Spell("Pyrocruor", 8, 295, fire()),
         "Ignite Blood" : Spell("Ignite Blood", 7, 218, fire()),
